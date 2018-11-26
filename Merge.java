@@ -15,7 +15,7 @@ public class Merge {
     ArrayList<Elemento> lis = new ArrayList<>();
     public ArrayList merge(Elemento [] vetor){
         Elemento aux[] = new Elemento[vetor.length];
-        merge(vetor,aux,1,vetor.length-1);
+        merge(vetor,aux,0,vetor.length-1);
         return lis;
     }
     private void merge(Elemento [] vetor,Elemento [] aux,int ini,int fim){
@@ -35,33 +35,37 @@ public class Merge {
         for(int k = ini;k<=fim;k++){
             if(i>meio){
                 vetor[k] = aux[j];
-                swap(vetor,j,k);
+                Elemento e = new Elemento();
+                e.setPrimeiro(k);
+                e.setSegundo(i);
+                lis.add(e);
                 j++;
             }
             else if(j>fim){
                 vetor[k] = aux[i];
-                swap(vetor,i,k);
+                Elemento e = new Elemento();
+                e.setPrimeiro(k);
+                e.setSegundo(i);
+                lis.add(e);
                 i++;
             }
             else if(aux[i].getNum()<aux[j].getNum()){
                 vetor[k] = aux[i];
-                swap(vetor,i,k);
+                Elemento e = new Elemento();
+                e.setPrimeiro(k);
+                e.setSegundo(i);
+                lis.add(e);
                 i++;
             }
             else{
                 vetor[k] = aux[j];
-                swap(vetor,j,k);
+                Elemento e = new Elemento();
+                e.setPrimeiro(k);
+                e.setSegundo(j);
+                lis.add(e);
                 j++;
             }
         }
     }
-    private void swap(Elemento[] v, int i, int j){
-        Elemento aux = v[i];
-        v[i] = v[j];
-        v[j] = aux;
-        Elemento e = new Elemento();
-        e.setPrimeiro(i);
-        e.setSegundo(j);
-        lis.add(e);
-    }
+    
 }

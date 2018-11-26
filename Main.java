@@ -52,10 +52,10 @@ public class Main extends Application {
                     
                 }
         }
-        public void carregatelaS(GraphicsContext gc,Elemento e,Elemento[] vetor){
+        public void carregatelaS(GraphicsContext gc,Elemento e,Elemento[] vetor,int az){
             gc.setStroke(Color.RED);
             gc.strokeLine(10, 400, 765, 400);
-            for(int i = 1; i<vetor.length;i++){
+            for(int i = 0; i<=az;i++){
                 if(i == e.getPrimeiro()){
                     Elemento aux = vetor[e.getPrimeiro()];
                     vetor[e.getPrimeiro()] = vetor[e.getSegundo()];
@@ -66,10 +66,10 @@ public class Main extends Application {
             }
             for(int i = 1; i<=50; i++){
                        
-                       if(i<=e.getSegundo())
-                           gc.setFill(Color.YELLOW);
-                       else
-                           gc.setFill(Color.GREEN);
+                       if(i == e.getPrimeiro() || i == e.getSegundo())
+                            gc.setFill(Color.GREEN);
+                        else
+                            gc.setFill(Color.BLACK);
                     gc.fillRect(i*15,400 - vetor[i].getNum()*8 , 10, vetor[i].getNum()*8);
                     
                 }
@@ -110,22 +110,23 @@ public class Main extends Application {
 		//linha (x1, y1, x2, y2)
 		gc.strokeLine(10, 400, 765, 400);
                 print(stage,pane);
-                
+                //Objetos instanciados para uso dos métodos de Ordenação!
                 Insertion zx = new Insertion();
                 Bolha b = new Bolha();
                 Quick qk = new Quick();
                 Merge mg = new Merge();
                 Selection sl = new Selection();
                 Elemento vet[] = new Elemento[51];
+                Heap hp = new Heap();
                 
                 for(int i = 0; i<=50;i++){
                     vet[i] = new Elemento(vetor1[i].getNum());
                 }
                 
-               
-                ArrayList<Elemento> list = sl.Selec(vetor1);
+                //Alterar aqui o método respectivo a classe de ordenação!
+                ArrayList<Elemento> list = mg.merge(vetor1);
                 
-                
+                int n = list.size();
                 Timer timer = new Timer();
                 TimerTask tarefa;
                 tarefa = new TimerTask(){
@@ -137,7 +138,9 @@ public class Main extends Application {
                         Elemento e = list.get(0);
                         list.remove(0);
                         limpatela(gc);
-                        carregatela(gc,e,vet);
+                        carregatelaS(gc,e,vet,n);
+                        System.out.println("TAM --" + n);
+                        
                         
                     }else{
                         cancel();
